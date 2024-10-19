@@ -14,3 +14,7 @@
 2. Install Dependencies by running `npm install` in your terminal.
 3. Customize your site by replacing default values like name, description, images and accent colors.
 4. Deploy.
+
+<h2>Preview</h2>
+
+<img src="https://i.postimg.cc/13PsxkX9/site.png">

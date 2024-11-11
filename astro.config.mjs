@@ -1,9 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
-    site: 'https://YOURNAME.site',
+    site: 'https://starterbuild.com',
     markdown: {
         shikiConfig: {
             themes: {
@@ -11,4 +11,11 @@ export default defineConfig({
             },
         },
     },
+    integrations: [
+        sitemap({
+            changefreq: 'weekly',
+            priority: 0.7,
+            lastmod: new Date(),
+        }),
+    ],
 });

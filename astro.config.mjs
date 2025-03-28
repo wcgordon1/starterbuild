@@ -18,4 +18,7 @@ export default defineConfig({
             lastmod: new Date(),
         }),
     ],
+    redirects: {
+        '/projects': '/just-playing-around',
+    }
 });

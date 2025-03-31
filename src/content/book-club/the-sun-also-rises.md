@@ -12,4 +12,3 @@ This book seems manly enough. We read the first three chapters aloud. Exchanging
 
 ![The Sun Also Rises](/assets/sr.png)
 
-This is the main book entry for The Sun Also Rises.

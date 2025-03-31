@@ -1,13 +1,15 @@
 ---
 interface Props {
   title: string;
+  description?: string;
 }
 
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import "../styles/global.css";
 
-const { title } = Astro.props;
+const { title, description = "Documenting my coding journey and life." } = Astro.props;
+const siteTitle = title.includes("StarterBuild") ? title : `${title} | StarterBuild`;
 ---
 
 <html lang="en">
@@ -15,20 +17,20 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" , initial-scale="1" />
 
-    <title>{title}</title>
-    <meta name="description" content="Hello. This used to be Starterbuild." />
+    <title>{siteTitle}</title>
+    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico" />
 
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={siteTitle} />
     <meta property="og:site_name" content="StarterBuild" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-   <meta property="og:image" content="/wws.png/" /> 
-    <meta property="og:image:alt" content="All my recent projects." />
+    <meta property="og:image" content="/assets/oggg.jpeg" />
+    <meta property="og:image:alt" content="StarterBuild - Documenting my coding journey and life" />
     <meta property="og:locale" content="en" />
-    <meta property="og:description" content="Hello. This used to be Starterbuild. Check out all my recent projects." />
-  </headš
+    <meta property="og:description" content={description} />
+  </head>
   <body>
     <Header />
     <slot />

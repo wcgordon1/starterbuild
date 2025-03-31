@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const chapters = await getCollection("book-club");
+  const chapterEntries = chapters.filter(entry => entry.data.bookSlug && entry.slug !== entry.data.bookSlug);
+  
+  console.log('Available chapters:', chapterEntries.map(c => ({
+    bookSlug: c.data.bookSlug,
+    chapterSlug: c.slug
+  })));
+  
+  return chapterEntries.map(chapter => {
+    // Extract just the filename without the directory
+    const chapterSlug = chapter.slug.split('/').pop();
+    
+    return {
+      params: {
+        slug: chapter.data.bookSlug,
+        chapter: chapterSlug
+      },
+      props: { chapter }
+    };
+  });
+}
+
+const { chapter } = Astro.props;
+const { Content } = await chapter.render();
+const bookSlug = chapter.data.bookSlug;
+---
+
+<Layout title={chapter.data.title}>
+  <main>
+    <a href={`/book-club/${bookSlug}/`} class="back-link">← Back to book</a>
+    <article>
+      <h1>{chapter.data.title}</h1>
+      <Content />
+    </article>
+  </main>
+
+  <style>
+    .back-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</Layout> 

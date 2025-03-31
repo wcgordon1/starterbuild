@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Layout from "../../layouts/Layout.astro";
+
+const books = (await getCollection("book-club", ({ data }) => !data.bookSlug)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="StarterBuild - Book Club">
+  <main>
+    <h1>Book Club</h1>
+    {
+      books.map((book) => (
+        <div class="post-item">
+          <div class="post-content">
+            <div class="title-wrapper">
+              <a href={`/book-club/${book.slug}/`}>
+                <h2 class="title">{book.data.title}</h2>
+              </a>
+              <span class="date">
+                <FormattedDate date={book.data.pubDate} />
+              </span>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+
+    <style>
+      .post-item {
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #ccc;
+        padding: 0;
+        margin: 20px 0 0 0;
+      }
+
+      .title-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .post-content {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .post-item a {
+        text-decoration: none;
+      }
+
+      .post-item h2 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--black-light);
+      }
+
+      .post-item h2:hover {
+        color: var(--accent);
+      }
+
+      .post-item:last-child {
+        border-bottom: none;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: #666;
+        margin: 0;
+        text-align: left;
+        display: block;
+      }
+    </style>
+  </main>
+</Layout> 
